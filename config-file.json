@@ -1,0 +1,11 @@
+{
+    "argument": "paralimpiadi",
+    "date": "today",
+    "news_number": 20,
+    "sorted_by": "publishedAt",
+    "language": "it",
+    "country": "it",
+    "category": "technology",
+    "everything_or_top_headlines": "everything",
+    "apiKey": ""
+  }
