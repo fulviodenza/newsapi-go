@@ -13,3 +13,4 @@ The command `go run main.go` in your terminal should execute the example program
 - [ ] write a decent readme and a documentation
 - [x] import correctly go module
 - [x] write an example source code 
+- [ ] Include OAuth to generate API Key
