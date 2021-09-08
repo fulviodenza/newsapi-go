@@ -11,6 +11,7 @@ import (
 	"github.com/fatih/color"
 )
 
+// Configuration stores configuration from config-file.json
 type configuration struct {
 	Argument                    string `json:"argument"`
 	Date                        string `json:"date"`
@@ -23,25 +24,31 @@ type configuration struct {
 	Language                    string `json:"language"`
 }
 
+// Articles contains an array for all articles
 type Articles struct {
 	Articles []News `json:"articles"`
 }
+
+// News contains the information related to every singles news
 type News struct {
-	Author      string `json:"author"`      //done
-	Title       string `json:"title"`       //done
-	Description string `json:"description"` //done
-	Url         string `json:"url"`         //done
-	UrlToImage  string `json:"urlToImage"`  //done
-	PublishedAt string `json:"publishedAt"` //done
-	Content     string `json:"content"`     //done
-	Source      Source `json:"source"`      //done
+	Author      string `json:"author"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	Url         string `json:"url"`
+	UrlToImage  string `json:"urlToImage"`
+	PublishedAt string `json:"publishedAt"`
+	Content     string `json:"content"`
+	Source      Source `json:"source"`
 }
 
+// Source contains ID and Name of the source the single news comes from
 type Source struct {
 	Id   string `json:"id"`
 	Name string `json:"name"`
 }
 
+// Parse config parse the json file and returns a configuration in which
+// the configuration is stored inand an error type
 func ParseConfig(filename string) (configuration, error) {
 	configFile, err := os.Open(filename)
 	if err != nil {
@@ -57,7 +64,8 @@ func ParseConfig(filename string) (configuration, error) {
 	return config, err
 }
 
-// Return the Json file
+// GetJson takes as input the configuration, the dateString related to Date
+// and the complete url for the news list
 func GetJson(config configuration, dateString string, url string) Articles {
 
 	resp, err := http.Get(url)
@@ -75,7 +83,7 @@ func GetJson(config configuration, dateString string, url string) Articles {
 	return newsList
 }
 
-// Print news submitted from the user in a pre-set style
+// PrintNews prints news submitted from the user in a pre-set style
 func PrintNews(newsList Articles) {
 	for i := range newsList.Articles {
 		color.Blue("#%d:", i)
@@ -99,12 +107,12 @@ func ComposeURL(config configuration, dateString string) string {
 	return completeUrl
 }
 
-//GETTER Functions
-
+// GetAuthor returns the author for the i-th news
 func (a Articles) GetAuthor(i int) string {
 	return a.Articles[i].Author
 }
 
+// GetAllAuthors returns authors for all news in a
 func (a Articles) GetAllAuthors() []string {
 	authors := make([]string, 0)
 	for i := range a.Articles {
@@ -114,11 +122,13 @@ func (a Articles) GetAllAuthors() []string {
 	return authors
 }
 
+// GetTitle returns the title for the i-th news
 func (a Articles) GetTitle(i int) string {
 	return a.Articles[i].Title
 }
 
-func (a Articles) GetAllTitles(i int) []string {
+// GetAllTitles returns titles for all news in a
+func (a Articles) GetAllTitles() []string {
 	titles := make([]string, 0)
 	for i := range a.Articles {
 		titles = append(titles, a.Articles[i].Title)
@@ -127,10 +137,12 @@ func (a Articles) GetAllTitles(i int) []string {
 	return titles
 }
 
+// GetContent returns content for the i-th news
 func (a Articles) GetContent(i int) string {
 	return a.Articles[i].Content
 }
 
+// GetContent returns contents for all news in a
 func (a Articles) GetAllContents() []string {
 	contents := make([]string, 0)
 	for i := range a.Articles {
@@ -140,10 +152,12 @@ func (a Articles) GetAllContents() []string {
 	return contents
 }
 
+// GetDescription returns description for the i-th news
 func (a Articles) GetDescription(i int) string {
 	return a.Articles[i].Description
 }
 
+// GetAllDescriptions returns descriptions for all news in a
 func (a Articles) GetAllDescriptions() []string {
 	descriptions := make([]string, 0)
 	for i := range a.Articles {
@@ -153,10 +167,12 @@ func (a Articles) GetAllDescriptions() []string {
 	return descriptions
 }
 
+// GetURL returns url for the i-th news
 func (a Articles) GetURL(i int) string {
 	return a.Articles[i].Url
 }
 
+// GetAllUrls returns description for all news
 func (a Articles) GetAllUrls() []string {
 	urls := make([]string, 0)
 	for i := range a.Articles {
@@ -166,10 +182,12 @@ func (a Articles) GetAllUrls() []string {
 	return urls
 }
 
+// GetUrlToImage returns url to image for the i-th news
 func (a Articles) GetUrlToImage(i int) string {
 	return a.Articles[i].UrlToImage
 }
 
+// GetAllUrlToImage returns url to image for all news
 func (a Articles) GetAllUrlsToImage() []string {
 	urlsToImage := make([]string, 0)
 	for i := range a.Articles {
@@ -179,10 +197,12 @@ func (a Articles) GetAllUrlsToImage() []string {
 	return urlsToImage
 }
 
+// GetPublishedAt returns publishedAt info for the i-th news
 func (a Articles) GetPublishedAt(i int) string {
 	return a.Articles[i].PublishedAt
 }
 
+// GetAllPublishedAt returns publishedAt info for all news
 func (a Articles) GetAllPublishedAt() []string {
 	publishedAt := make([]string, 0)
 	for i := range a.Articles {
@@ -192,10 +212,12 @@ func (a Articles) GetAllPublishedAt() []string {
 	return publishedAt
 }
 
+// GetSource returns source info for the i-th news
 func (a Articles) GetSource(i int) Source {
 	return a.Articles[i].Source
 }
 
+// GetAllSources returns source info for all news
 func (a Articles) GetAllSources() []Source {
 	sources := make([]Source, 0)
 	for i := range a.Articles {
