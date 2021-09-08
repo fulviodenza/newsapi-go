@@ -27,9 +27,19 @@ type Articles struct {
 	Articles []News `json:"articles"`
 }
 type News struct {
-	Author      string `json:"author"`
-	Title       string `json:"title"`
-	Description string `json:"description"`
+	Author      string `json:"author"`      //done
+	Title       string `json:"title"`       //done
+	Description string `json:"description"` //done
+	Url         string `json:"url"`         //done
+	UrlToImage  string `json:"urlToImage"`  //done
+	PublishedAt string `json:"publishedAt"` //done
+	Content     string `json:"content"`     //done
+	Source      Source `json:"source"`      //done
+}
+
+type Source struct {
+	Id   string `json:"id"`
+	Name string `json:"name"`
 }
 
 func ParseConfig(filename string) (configuration, error) {
@@ -81,10 +91,116 @@ func ComposeURL(config configuration, dateString string) string {
 	urlQuery := "q=" + config.Argument
 	urlDate := "&from=" + dateString
 	urlSort := "&sortBy=" + config.Sorted_by
-	urlApi := "&apiKey=" + config.ApiKey
+	urlApi := "&apiKey=" + os.Getenv("APIKEY")
 	urlLanguage := "&language=" + config.Language
 
 	completeUrl := url + urlEverythingOrTopHeadlines + urlQuery + urlDate + urlSort + urlLanguage + urlApi
 
 	return completeUrl
+}
+
+//GETTER Functions
+
+func (a Articles) GetAuthor(i int) string {
+	return a.Articles[i].Author
+}
+
+func (a Articles) GetAllAuthors() []string {
+	authors := make([]string, 0)
+	for i := range a.Articles {
+		authors = append(authors, a.Articles[i].Author)
+	}
+
+	return authors
+}
+
+func (a Articles) GetTitle(i int) string {
+	return a.Articles[i].Title
+}
+
+func (a Articles) GetAllTitles(i int) []string {
+	titles := make([]string, 0)
+	for i := range a.Articles {
+		titles = append(titles, a.Articles[i].Title)
+	}
+
+	return titles
+}
+
+func (a Articles) GetContent(i int) string {
+	return a.Articles[i].Content
+}
+
+func (a Articles) GetAllContents() []string {
+	contents := make([]string, 0)
+	for i := range a.Articles {
+		contents = append(contents, a.Articles[i].Content)
+	}
+
+	return contents
+}
+
+func (a Articles) GetDescription(i int) string {
+	return a.Articles[i].Description
+}
+
+func (a Articles) GetAllDescriptions() []string {
+	descriptions := make([]string, 0)
+	for i := range a.Articles {
+		descriptions = append(descriptions, a.Articles[i].Description)
+	}
+
+	return descriptions
+}
+
+func (a Articles) GetURL(i int) string {
+	return a.Articles[i].Url
+}
+
+func (a Articles) GetAllUrls() []string {
+	urls := make([]string, 0)
+	for i := range a.Articles {
+		urls = append(urls, a.Articles[i].Url)
+	}
+
+	return urls
+}
+
+func (a Articles) GetUrlToImage(i int) string {
+	return a.Articles[i].UrlToImage
+}
+
+func (a Articles) GetAllUrlsToImage() []string {
+	urlsToImage := make([]string, 0)
+	for i := range a.Articles {
+		urlsToImage = append(urlsToImage, a.Articles[i].UrlToImage)
+	}
+
+	return urlsToImage
+}
+
+func (a Articles) GetPublishedAt(i int) string {
+	return a.Articles[i].PublishedAt
+}
+
+func (a Articles) GetAllPublishedAt() []string {
+	publishedAt := make([]string, 0)
+	for i := range a.Articles {
+		publishedAt = append(publishedAt, a.Articles[i].PublishedAt)
+	}
+
+	return publishedAt
+}
+
+func (a Articles) GetSource(i int) Source {
+	return a.Articles[i].Source
+}
+
+func (a Articles) GetAllSources() []Source {
+	sources := make([]Source, 0)
+	for i := range a.Articles {
+		sources = append(sources, a.Articles[i].Source)
+	}
+
+	return sources
 }
