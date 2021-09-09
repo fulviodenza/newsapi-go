@@ -24,12 +24,14 @@ type configuration struct {
 	Language                    string `json:"language"`
 }
 
-// Articles contains an array for all articles
+// Articles contains an array
+// for all articles
 type Articles struct {
 	Articles []News `json:"articles"`
 }
 
-// News contains the information related to every singles news
+// News contains the information
+// related to every singles news
 type News struct {
 	Author      string `json:"author"`
 	Title       string `json:"title"`
@@ -41,7 +43,8 @@ type News struct {
 	Source      Source `json:"source"`
 }
 
-// Source contains ID and Name of the source the single news comes from
+// Source contains ID and Name of the source
+// the single news comes from
 type Source struct {
 	Id   string `json:"id"`
 	Name string `json:"name"`
@@ -225,4 +228,7 @@ func (a Articles) GetAllSources() []Source {
 	}
 
 	return sources
+}
+
+func SendRequest() {
 }
