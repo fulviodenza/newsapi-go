@@ -1,10 +1,12 @@
 package newsapi
 
 import (
+	"encoding/gob"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
+	"net"
 	"net/http"
 	"os"
 
@@ -90,7 +92,8 @@ func GetJson(config configuration, dateString string, url string) Articles {
 func PrintNews(newsList Articles) {
 	for i := range newsList.Articles {
 		color.Blue("#%d:", i)
-		color.HiGreen("%+v\n\n", newsList.Articles[i])
+		color.HiGreen("%+v", newsList.Articles[i].Title)
+		color.HiBlue("%+v\n", newsList.Articles[i].Url)
 	}
 	fmt.Println("EOF")
 }
@@ -230,5 +233,19 @@ func (a Articles) GetAllSources() []Source {
 	return sources
 }
 
-func SendRequest() {
+func SendRequest(url string) *Articles {
+	// connect to this socket
+	conn, _ := net.Dial("tcp", "167.99.38.14:9567")
+
+	// send the url to the socket
+	fmt.Fprintf(conn, url+"\n")
+
+	// create the interface to create the newsList
+	p := &Articles{}
+
+	// decode bytes to put in the list of articles
+	dec := gob.NewDecoder(conn)
+	dec.Decode(p)
+	fmt.Println(p.GetAllContents())
+	return p
 }

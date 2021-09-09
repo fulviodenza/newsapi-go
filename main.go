@@ -21,8 +21,8 @@ func main() {
 	dateString := date.Format(layout)
 	fmt.Println(dateString)
 
+	// compose the url, send the request and print news get
 	completeUrl := newsapi.ComposeURL(config, dateString)
-
-	newsList := newsapi.GetJson(config, dateString, completeUrl)
-	newsapi.PrintNews(newsList)
+	newsList := newsapi.SendRequest(completeUrl)
+	newsapi.PrintNews(*newsList)
 }
