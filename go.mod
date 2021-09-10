@@ -1,4 +1,4 @@
-module newsapi
+module newsapi-go
 
 go 1.17
 
