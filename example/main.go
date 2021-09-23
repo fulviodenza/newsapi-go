@@ -2,13 +2,12 @@ package main
 
 import (
 	"fmt"
-	"testing"
 	"time"
 
-	"newsapi-go/newsapi"
+	"github.com/fulviodenza/newsapi-go/newsapi"
 )
 
-func TestMainFeature(t *testing.T) {
+func main() {
 
 	config, _ := newsapi.ParseConfig("../config-file.json")
 
