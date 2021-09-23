@@ -4,7 +4,7 @@ This project has the intent to provide a valid interface for newsapi (https://ne
 # usage
 Finally the project has a stable release! 
 You can get it using 
-`go get github.com/fulviodenza/newsapi-go`
+`go get github.com/fulviodenza/newsapi-go@v1.0.1`
 
 # architecture
 The project is based on a simple architecture composed by a client and a server running in a container inside an server instance. The server is kept secret because it contains the API Key
