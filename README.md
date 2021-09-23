@@ -9,6 +9,7 @@ The command `go run main.go` in your terminal should execute the example program
 
 # architecture
 The project is based on a simple architecture composed by a client and a server running in a container inside an server instance. The server is kept secret because it contains the API Key
+
 ![general architecture](docs/general_architecture.jpg)
 
 # todo list
