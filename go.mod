@@ -1,4 +1,4 @@
-module newsapi-go
+module github.com/fulviodenza/newsapi-go
 
 go 1.17
 
