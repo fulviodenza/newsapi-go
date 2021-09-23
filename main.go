@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"feedme-go/newsapi"
+	"newsapi-go/newsapi"
 )
 
 func main() {
