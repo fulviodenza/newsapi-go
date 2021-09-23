@@ -2,14 +2,15 @@ package main
 
 import (
 	"fmt"
+	"testing"
 	"time"
 
 	"newsapi-go/newsapi"
 )
 
-func main() {
+func TestMainFeature(t *testing.T) {
 
-	config, _ := newsapi.ParseConfig("./config-file.json")
+	config, _ := newsapi.ParseConfig("../config-file.json")
 
 	var date time.Time
 	layout := "2006-01-02"
@@ -25,4 +26,5 @@ func main() {
 	completeUrl := newsapi.ComposeURL(config, dateString)
 	newsList := newsapi.SendRequest(completeUrl)
 	newsapi.PrintNews(*newsList)
+
 }
