@@ -8,8 +8,8 @@ You can get it using
 
 # run the example
 To run the example you don't need to create any api key because i'm offering mine to you!
-The only thing actually you have to do is change the config-file.json and run the following commands:
-`cd example`
+The only thing actually you have to do is change the config-file.json and run the following commands:__
+`cd example`__
 `go run main.go`
 
 # architecture
