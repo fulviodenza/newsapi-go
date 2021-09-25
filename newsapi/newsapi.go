@@ -121,7 +121,7 @@ func (a Articles) GetAuthor(i int) string {
 
 // GetAllAuthors returns authors for all news in a
 func (a Articles) GetAllAuthors() []string {
-	authors := make([]string, 0)
+	authors := make([]string, 0, len(a.Articles))
 	for i := range a.Articles {
 		authors = append(authors, a.Articles[i].Author)
 	}
@@ -136,7 +136,7 @@ func (a Articles) GetTitle(i int) string {
 
 // GetAllTitles returns titles for all news in a
 func (a Articles) GetAllTitles() []string {
-	titles := make([]string, 0)
+	titles := make([]string, 0, len(a.Articles))
 	for i := range a.Articles {
 		titles = append(titles, a.Articles[i].Title)
 	}
@@ -151,7 +151,7 @@ func (a Articles) GetContent(i int) string {
 
 // GetContent returns contents for all news in a
 func (a Articles) GetAllContents() []string {
-	contents := make([]string, 0)
+	contents := make([]string, 0, len(a.Articles))
 	for i := range a.Articles {
 		contents = append(contents, a.Articles[i].Content)
 	}
@@ -166,7 +166,7 @@ func (a Articles) GetDescription(i int) string {
 
 // GetAllDescriptions returns descriptions for all news in a
 func (a Articles) GetAllDescriptions() []string {
-	descriptions := make([]string, 0)
+	descriptions := make([]string, 0, len(a.Articles))
 	for i := range a.Articles {
 		descriptions = append(descriptions, a.Articles[i].Description)
 	}
@@ -181,7 +181,7 @@ func (a Articles) GetURL(i int) string {
 
 // GetAllUrls returns description for all news
 func (a Articles) GetAllUrls() []string {
-	urls := make([]string, 0)
+	urls := make([]string, 0, len(a.Articles))
 	for i := range a.Articles {
 		urls = append(urls, a.Articles[i].Url)
 	}
@@ -196,7 +196,7 @@ func (a Articles) GetUrlToImage(i int) string {
 
 // GetAllUrlToImage returns url to image for all news
 func (a Articles) GetAllUrlsToImage() []string {
-	urlsToImage := make([]string, 0)
+	urlsToImage := make([]string, 0, len(a.Articles))
 	for i := range a.Articles {
 		urlsToImage = append(urlsToImage, a.Articles[i].UrlToImage)
 	}
@@ -211,7 +211,7 @@ func (a Articles) GetPublishedAt(i int) string {
 
 // GetAllPublishedAt returns publishedAt info for all news
 func (a Articles) GetAllPublishedAt() []string {
-	publishedAt := make([]string, 0)
+	publishedAt := make([]string, 0, len(a.Articles))
 	for i := range a.Articles {
 		publishedAt = append(publishedAt, a.Articles[i].PublishedAt)
 	}
@@ -225,10 +225,10 @@ func (a Articles) GetSource(i int) Source {
 }
 
 // GetAllSources returns source info for all news
-func (a Articles) GetAllSources() []Source {
-	sources := make([]Source, 0)
+func (a Articles) GetAllSources() []string {
+	sources := make([]string, 0, len(a.Articles))
 	for i := range a.Articles {
-		sources = append(sources, a.Articles[i].Source)
+		sources = append(sources, a.Articles[i].Source.Name)
 	}
 
 	return sources
