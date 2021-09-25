@@ -4,7 +4,7 @@ This project has the intent to provide a valid interface for newsapi (https://ne
 # usage
 Finally the project has a stable release! 
 You can get it using 
-`go get github.com/fulviodenza/newsapi-go`
+`go get github.com/fulviodenza/newsapi-go@v1.0.1`
 
 # run the example
 To run the example you don't need to create any api key because i'm offering mine to you!
