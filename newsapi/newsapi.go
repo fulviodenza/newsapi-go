@@ -56,22 +56,23 @@ type Source struct {
 // the configuration is stored inand an error type
 func ParseConfig(filename string) (configuration, error) {
 	configFile, err := os.Open(filename)
+	config := configuration{}
+
 	if err != nil {
-		log.Fatal(err)
+		return config, err
 	}
 	defer configFile.Close()
 
 	byteValue, _ := ioutil.ReadAll(configFile)
-	config := configuration{}
 	if err := json.Unmarshal(byteValue, &config); err != nil {
-		log.Fatal(err)
+		return config, err
 	}
 	return config, err
 }
 
 // GetJson takes as input the configuration, the dateString related to Date
 // and the complete url for the news list
-func GetJson(config configuration, dateString string, url string) Articles {
+func GetNewsList(config configuration, dateString string, url string) Articles {
 
 	resp, err := http.Get(url)
 	if err != nil {
