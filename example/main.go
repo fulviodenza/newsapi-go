@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/fulviodenza/newsapi-go/newsapi"
@@ -9,8 +10,10 @@ import (
 
 func main() {
 
-	config, _ := newsapi.ParseConfig("../config-file.json")
-
+	config, err := newsapi.ParseConfig("../config-file.json")
+	if err != nil {
+		log.Fatal(err)
+	}
 	var date time.Time
 	layout := "2006-01-02"
 
@@ -23,7 +26,12 @@ func main() {
 
 	// compose the url, send the request and print news get
 	completeUrl := newsapi.ComposeURL(config, dateString)
-	newsList := newsapi.SendRequest(completeUrl)
+
+	newsList, err := newsapi.SendRequest(completeUrl)
+	if err != nil {
+		log.Panic(err)
+	}
+
 	newsapi.PrintNews(*newsList)
 
 }
