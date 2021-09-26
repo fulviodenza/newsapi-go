@@ -4,8 +4,7 @@ import (
 	"encoding/gob"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"log"
+	"io"
 	"net"
 	"net/http"
 	"os"
@@ -63,7 +62,11 @@ func ParseConfig(filename string) (configuration, error) {
 	}
 	defer configFile.Close()
 
-	byteValue, _ := ioutil.ReadAll(configFile)
+	byteValue, err := io.ReadAll(configFile)
+	if err != nil {
+		return config, err
+	}
+
 	if err := json.Unmarshal(byteValue, &config); err != nil {
 		return config, err
 	}
@@ -72,21 +75,22 @@ func ParseConfig(filename string) (configuration, error) {
 
 // GetJson takes as input the configuration, the dateString related to Date
 // and the complete url for the news list
-func GetNewsList(config configuration, dateString string, url string) Articles {
+func GetNewsList(config configuration, dateString string, url string) (Articles, error) {
+
+	var newsList Articles
 
 	resp, err := http.Get(url)
 	if err != nil {
-		log.Fatal(err)
+		return newsList, err
 	}
 
-	var newsList Articles
 	err = json.NewDecoder(resp.Body).Decode(&newsList)
 
 	if err != nil {
-		log.Fatal(err)
+		return newsList, err
 	}
 
-	return newsList
+	return newsList, nil
 }
 
 // PrintNews prints news submitted from the user in a pre-set style
@@ -234,19 +238,32 @@ func (a Articles) GetAllSources() []string {
 	return sources
 }
 
-func SendRequest(url string) *Articles {
+func SendRequest(url string) (*Articles, error) {
+
+	// create the interface to create the newsList,
+	//this interface could also be void, in that case the user must handle nil case
+	p := &Articles{}
+
 	// connect to this socket
-	conn, _ := net.Dial("tcp", "167.99.38.14:9567")
+	conn, err := net.Dial("tcp", "167.99.38.14:9567")
+	if err != nil {
+		return p, err
+	}
 
 	// send the url to the socket
-	fmt.Fprintf(conn, url+"\n")
-
-	// create the interface to create the newsList
-	p := &Articles{}
+	_, err = fmt.Fprintf(conn, url+"\n")
+	if err != nil {
+		return p, err
+	}
 
 	// decode bytes to put in the list of articles
 	dec := gob.NewDecoder(conn)
-	dec.Decode(p)
+
+	err = dec.Decode(p)
+	if err != nil {
+		return p, nil
+	}
+
 	fmt.Println(p.GetAllContents())
-	return p
+	return p, nil
 }
