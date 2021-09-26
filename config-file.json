@@ -1,10 +1,10 @@
 {
-    "argument": "paralimpiadi",
+    "argument": "minecraft",
     "date": "today",
     "news_number": 20,
     "sorted_by": "publishedAt",
     "language": "it",
     "country": "it",
-    "category": "technology",
+    "category": "",
     "everything_or_top_headlines": "everything"
   }
